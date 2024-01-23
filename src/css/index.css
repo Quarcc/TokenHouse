@@ -24,22 +24,25 @@ html{
 
 body{
     font-family: 'GeneralSans-Variable';
+    background-color: black;
 }
 
 .navbar{
     background-color: transparent;
 }
 
-.logo-name{
-    font-family: 'Technor-Black';
-    -webkit-filter: invert(100%);
-    filter: invert(100%);
+.login-hidden-nav{
+    display: none;
 }
 
-.navbar-text{
-    -webkit-filter: invert(100%);
-    filter: invert(100%);
+.logo-name{
+    font-family: 'Technor-Black';
+    color: white;
+}
+
+.navbartext{
     font-weight: 700;
+    color: white;
 }
 
 #mm-login{
@@ -67,7 +70,21 @@ body{
     position: absolute;
 }
 
-section{
-    background: rgb(24, 24, 24, 0.8);
+#home{
+    background: rgb(24, 24, 24, 0.75);
     z-index: 1;
+}
+
+#abt-text-header{
+    color: white;
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.abt-text-desc{
+    color: white;
+}
+
+hr{
+    color: white;
 }
