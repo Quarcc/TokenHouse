@@ -38,7 +38,7 @@ contract HouseRegistrationContract{
 
         // transfer houseList
         HouseRegistrationContract.Owner memory newOwner = Owner(_owner, _address);
-        houseList[_houseNo] = House(_houseNo, newOwner); //create a new house and update the houseList with new house
+        houseList[_houseNo] = House(_houseNo, newOwner); //create a new house and update the houseList with new owner
     }
 
     // Get owner details
