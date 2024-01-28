@@ -24,11 +24,11 @@ html{
 
 body{
     font-family: 'GeneralSans-Variable';
-    background: black;
+    background: #222222;
 }
 
 .navbar{
-    background-color: rgba(24, 24, 24, 0.5);
+    background-color: transparent;
 }
 
 .login-hidden-nav{

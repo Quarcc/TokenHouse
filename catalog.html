@@ -54,7 +54,26 @@
             <div class="d-flex vh-200 justify-content-center align-items-center">
                 <div class="col-xl-12 col-lg-12 col-md-6 col-sm-6">
                     <div class="container d-flex vh-100 justify-content-center align-items-center">
-                        
+                        <div id="houseregistrationlist">
+                            <h1>Propety List</h1>
+                            <hr/><br/>
+                            <table class="table"> <!--display the list of house registrations-->
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Street Address</th>
+                                        <th scope="col">Unit</th>
+                                        <th scope="col">Completion Date</th>
+                                        <th scope="col">Latest Transaction Date</th>
+                                        <th scope="col">Current Owner</th>
+                                        <th scope="col">Owner's Address</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="propertyListResult"></tbody>
+                            </table>
+                            <br/>
+                            <span id="message"></span> <hr/> <!--display message-->
+                            <div id="walletAddress"></div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -257,7 +257,6 @@ HouseRegistrationApp.prototype.loadHouseRegistration = function () {
                 $("#houseListResults").append(houseTemplate);
             });
         }
-
         var nextHouseCount = houseCount.toNumber() + 1; //find the next number
         $("#newHouseNo").val(nextHouseCount) //set the value of the next houseNo in the house Number textbox
         $("#newHouseNo").attr('disabled', true) //disable entry in the house Number textbox

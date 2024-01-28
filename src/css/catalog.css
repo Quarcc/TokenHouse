@@ -68,3 +68,7 @@ body{
     background: rgb(24, 24, 24, 0.75);
     z-index: 1;
 }
+
+#walletAddress{
+    color: white;
+}
