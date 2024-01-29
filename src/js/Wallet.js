@@ -1,3 +1,7 @@
+$(document).ready(function() {
+  $("#confirmedAddress").append(localStorage.getItem("CurrAddress"));
+});
+
 // ===== OBTAIN WALLET ADDRESS =====
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -27,11 +31,9 @@ document.addEventListener("DOMContentLoaded", function () {
         displayWalletAddress(currentAddress);
         localStorage.setItem("CurrAddress", currentAddress)
     });
-  }
+  };
   
   function displayWalletAddress(address) {
     var walletAddressElement = document.getElementById('walletAddress');
     walletAddressElement.textContent = address || "Not connected to Metamask";
-  }
-  
-  console.log(localStorage.getItem("CurrAddress"));
+  };

@@ -39,40 +39,61 @@ body{
     color: white;
 }
 
+.navbartext{
+    font-weight: 700;
+    color: white;
+}
+
+#mm-logout{
+    background-color: #C6BEAC;
+    border: 1px solid #C6BEAC;
+    border-radius: 20px;
+    font-weight: bold;
+    color: black;
+}
+
+#mm-logout:hover{
+    background-color: #FFFFFF;
+}
+
 .mainimg{
     width: 100%;
     height: 100%;
     z-index: -1;
-    position: absolute;   
+    position: fixed;
 }
 
-#login{
-    background: rgba(24, 24, 24, 0.75);
+#profile{
+    background-color: rgba(24, 24, 24, 0.75);
     z-index: 1;
 }
 
-.loginbg{
+.no-record{
     background: rgba(24, 24, 24, 0.8);
+    border-radius: 10%;
+}
+
+.no-record hr{
     color: white;
-    border-radius: 5%;
 }
 
-.logintitle{
-    font-weight: 700;
-    font-size: 50px;
-    font-family: 'Technor-Black';
+.walletdisplay, .walletAddress{
+    color: white;
+    font-weight: 600;
 }
 
-.loginconfirmation{
-    font-size: 20px;
+.form-floating{
+    color: white;
 }
 
-#walletAddress{
-    color: red;
-    font-weight: 500;
+.form-floating input{
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #adad9d;
 }
 
-.descheader{
-    text-decoration: underline;
-    font-size: 18px;
+.form-floating input:focus{
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #adad9d;
 }
