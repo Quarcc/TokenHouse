@@ -71,8 +71,8 @@ body{
 }
 
 #home{
-    background: rgb(24, 24, 24, 0.75);
     z-index: 1;
+    background-image: linear-gradient(rgba(24, 24, 24, 0.5), rgba(34, 34, 34, 1));
 }
 
 #abt-text-header, #how-text-header{
@@ -86,5 +86,15 @@ body{
 }
 
 hr{
+    color: white;
+}
+
+.howimg{
+    margin-top: 10px;
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.howtext{
     color: white;
 }

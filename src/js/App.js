@@ -10,44 +10,6 @@ $(document).ready(function(){
   });
 });
 
-// ===== OBTAIN WALLET ADDRESS =====
-
-document.addEventListener("DOMContentLoaded", function () {
-  // Check if Web3 is injected by Metamask
-  if (typeof web3 !== 'undefined') {
-      // Use the injected provider
-      web3 = new Web3(web3.currentProvider);
-
-      // Update the wallet address on page load
-      updateWalletAddress();
-
-      // Set up an event listener for account changes
-      window.ethereum.on('accountsChanged', function (accounts) {
-          // Update the wallet address when the account changes
-          updateWalletAddress();
-      });
-  } else {
-      // Metamask not detected
-      displayWalletAddress("Metamask not detected. Please install Metamask to use this feature.");
-  }
-});
-
-function updateWalletAddress() {
-  // Get the current Ethereum address
-  web3.eth.getAccounts().then(function (accounts) {
-      var currentAddress = accounts[0];
-      displayWalletAddress(currentAddress);
-      localStorage.setItem("CurrAddress", currentAddress)
-  });
-}
-
-function displayWalletAddress(address) {
-  var walletAddressElement = document.getElementById('walletAddress');
-  walletAddressElement.textContent = address || "Not connected to Metamask";
-}
-
-console.log(localStorage.getItem("CurrAddress"));
-
 // ===== BLOCKCHAIN RELATED JS =====
 
 // The object 'Contracts" will be injected here which contains the ABI, address of your deployed contract and endpoint 
@@ -341,7 +303,7 @@ var Contracts = { OwnershipContract:  {
       "type": "constructor"
     }
   ],
-  address: "0x126b852f35b94a35776cb3b590379fc02ef1308f",
+  address: "0x6b9899bf5b06d5c9a9a811a50ce8e9fbbf10fed0",
   endpoint: "https://sepolia.infura.io/v3/"
  }}
 

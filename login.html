@@ -7,17 +7,17 @@
     <link rel="icon" type="image/x-icon" href="src/img/blockchain.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="src/css/catalog.css">
+    <link rel="stylesheet" href="src/css/login.css">
     <script type="text/javascript" src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
     <script type="text/javascript" src="https://unpkg.com/web3@0.20.5/dist/web3.min.js"></script>
-    <script src="src/js/App.js"></script>
+    <script src="src/js/Wallet.js"></script>
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container-fluid">
             <!-- Logo -->
-            <a class="navbar-brand fs-2 ms-2" href="#home"><p class="logo-name">TokenHouse</p></a>
+            <a class="navbar-brand fs-2 ms-2" href="index.html"><p class="logo-name">TokenHouse</p></a>
             <!-- Toggle Button -->
             <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                 aria-controls="offcanvasNavbar">
@@ -34,27 +34,27 @@
                 <!-- Sidebar body -->
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        <li class="nav-item">
-                            <a class="nav-link mx-2 navbar-text" href="#"><p class="navbartext">Catalog</p></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link ms-2 navbar-text" href="profile.html"><p class="navbartext">Profile</p></a>
-                        </li>
-                        <li class="nav-item">
-                            <button id="mm-logout" class="nav-link ms-2 px-4">Logout</button>
-                        </li>
                     </ul>
                 </div>
             </div>
         </div>
     </nav>
-    <section id="catalog">
+    <section id="login">
         <img src="src/img/MainBg.jpg" alt="" class="mainimg">
         <div class="container">
             <div class="d-flex vh-200 justify-content-center align-items-center">
                 <div class="col-xl-12 col-lg-12 col-md-6 col-sm-6">
                     <div class="container d-flex vh-100 justify-content-center align-items-center">
-                        <div id="walletAddress">Loading...</div>
+                        <div class="loginbg">
+                            <p class="text-center">
+                                Welcome! 
+                                <br>
+                                Thank you for choosing TokenHouse
+                            </p>
+                            <br>
+                                Please confirm the wallet address stated below is the one you wish to use our application.
+                            <div id="walletAddress">Loading...</div>
+                        </div>
                     </div>
                 </div>
             </div>
