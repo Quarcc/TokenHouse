@@ -86,8 +86,8 @@ contract PropertyLandContract{
         balance[receiver] += amount;
     }
 
-//     constructor() public {
-//         mintCoins(0xee439FC34Ef3Df8aA8c73D9690C4B9eEffE59eC4, 5000); // add 5000 coins into 1st wallet
-//         mintCoins(0x88152De02a041Ff5028F0104cBB1d99aE7C80D62, 10000); // add 10000 coins into 2nd wallet
-//     }
+    // constructor() public {
+    //     mintCoins(0xee439FC34Ef3Df8aA8c73D9690C4B9eEffE59eC4, 5000); // add 5000 coins into 1st wallet
+    //     mintCoins(0x88152De02a041Ff5028F0104cBB1d99aE7C80D62, 10000); // add 10000 coins into 2nd wallet
+    // }
 }
