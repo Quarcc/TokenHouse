@@ -26,141 +26,11 @@ $(document).ready(function(){
 var Contracts = { OwnershipContract:  {
   abi: [
     {
-      "inputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "constructor"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "balance",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "_propertyID",
-          "type": "uint256"
-        }
-      ],
-      "name": "getProperty",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "_street_address",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_unit",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_completion_date",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_transaction_date",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_owner_name",
-          "type": "string"
-        },
-        {
-          "internalType": "address",
-          "name": "_wallet_address",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_address",
-          "type": "address"
-        }
-      ],
-      "name": "getUser",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "_nric",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_name",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_email",
-          "type": "string"
-        },
-        {
-          "internalType": "address",
-          "name": "_wallet_address",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "receiver",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "mintCoins",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "pListID",
       "outputs": [
         {
-          "internalType": "uint256",
           "name": "",
           "type": "uint256"
         }
@@ -173,163 +43,43 @@ var Contracts = { OwnershipContract:  {
       "constant": false,
       "inputs": [
         {
-          "internalType": "string",
-          "name": "_owner",
-          "type": "string"
-        },
-        {
-          "internalType": "address",
-          "name": "_address",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_amount",
-          "type": "uint256"
-        },
-        {
-          "internalType": "string",
-          "name": "_id",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_street_address",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_unit",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_completion_date",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_transaction_date",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_email",
-          "type": "string"
-        }
-      ],
-      "name": "registerProperty",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_nric",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_name",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_email",
-          "type": "string"
-        },
-        {
-          "internalType": "address",
-          "name": "_wallet_address",
-          "type": "address"
-        }
-      ],
-      "name": "registerUser",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "sender",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "receiver",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "sendCoins",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "internalType": "uint256",
           "name": "_propertyID",
           "type": "uint256"
         },
         {
-          "internalType": "string",
           "name": "_owner",
           "type": "string"
         },
         {
-          "internalType": "address",
           "name": "_address",
           "type": "address"
         },
         {
-          "internalType": "uint256",
-          "name": "_amount",
-          "type": "uint256"
-        },
-        {
-          "internalType": "string",
           "name": "_id",
           "type": "string"
         },
         {
-          "internalType": "string",
           "name": "_street_address",
           "type": "string"
         },
         {
-          "internalType": "string",
           "name": "_unit",
           "type": "string"
         },
         {
-          "internalType": "string",
           "name": "_completion_date",
           "type": "string"
         },
         {
-          "internalType": "string",
-          "name": "_transaction_date",
+          "name": "_email",
           "type": "string"
         },
         {
-          "internalType": "string",
-          "name": "_email",
+          "name": "_sale",
+          "type": "bool"
+        },
+        {
+          "name": "_sale_price",
           "type": "string"
         }
       ],
@@ -343,7 +93,6 @@ var Contracts = { OwnershipContract:  {
       "constant": true,
       "inputs": [
         {
-          "internalType": "address",
           "name": "",
           "type": "address"
         }
@@ -351,22 +100,18 @@ var Contracts = { OwnershipContract:  {
       "name": "userList",
       "outputs": [
         {
-          "internalType": "string",
           "name": "id",
           "type": "string"
         },
         {
-          "internalType": "string",
           "name": "name",
           "type": "string"
         },
         {
-          "internalType": "string",
           "name": "email",
           "type": "string"
         },
         {
-          "internalType": "address",
           "name": "wallet_address",
           "type": "address"
         }
@@ -374,9 +119,155 @@ var Contracts = { OwnershipContract:  {
       "payable": false,
       "stateMutability": "view",
       "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_owner",
+          "type": "string"
+        },
+        {
+          "name": "_address",
+          "type": "address"
+        },
+        {
+          "name": "_id",
+          "type": "string"
+        },
+        {
+          "name": "_street_address",
+          "type": "string"
+        },
+        {
+          "name": "_unit",
+          "type": "string"
+        },
+        {
+          "name": "_completion_date",
+          "type": "string"
+        },
+        {
+          "name": "_email",
+          "type": "string"
+        },
+        {
+          "name": "_sale",
+          "type": "bool"
+        },
+        {
+          "name": "_sale_price",
+          "type": "string"
+        }
+      ],
+      "name": "registerProperty",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_propertyID",
+          "type": "uint256"
+        }
+      ],
+      "name": "getProperty",
+      "outputs": [
+        {
+          "name": "_street_address",
+          "type": "string"
+        },
+        {
+          "name": "_unit",
+          "type": "string"
+        },
+        {
+          "name": "_completion_date",
+          "type": "string"
+        },
+        {
+          "name": "_owner_name",
+          "type": "string"
+        },
+        {
+          "name": "_wallet_address",
+          "type": "address"
+        },
+        {
+          "name": "_sale",
+          "type": "bool"
+        },
+        {
+          "name": "_sale_price",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_address",
+          "type": "address"
+        }
+      ],
+      "name": "getUser",
+      "outputs": [
+        {
+          "name": "_nric",
+          "type": "string"
+        },
+        {
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "name": "_email",
+          "type": "string"
+        },
+        {
+          "name": "_wallet_address",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_nric",
+          "type": "string"
+        },
+        {
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "name": "_email",
+          "type": "string"
+        },
+        {
+          "name": "_wallet_address",
+          "type": "address"
+        }
+      ],
+      "name": "registerUser",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     }
   ],
-  address: "0x4d6f751007469918665c74bb781e0b33aa6b0136",
+  address: "0x5a2c79ef88732b57771671f2d03840a4d96a247b",
   endpoint: "https://sepolia.infura.io/v3/"
  }}
 

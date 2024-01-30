@@ -14,15 +14,13 @@ contract PropertyLandContract{
         string street_address;
         string unit;
         string completion_date;
-        string transaction_date;
         User owner;
+        Sale sale;
     }
 
-    struct Land{
-        string street_address;
-        string unit;
-        string completion_date;
-        User owner;
+    struct Sale{
+        bool for_sale;
+        string sale_price;
     }
 
     // Read/write Users
@@ -32,61 +30,33 @@ contract PropertyLandContract{
     mapping(uint => Property) private propertyList; 
     uint public pListID;
 
-    // Read/write Land
-    mapping(string => Land) private landList; 
-
-    // Creating a balance mapping, address to the value (concept is the same as a key-value in a dictionary[python])
-    mapping(address => uint) public balance;
-
     // Registers User an account with wallet address
     function registerUser (string memory _nric, string memory _name, string memory _email, address _wallet_address) public {
         userList[_wallet_address] = User(_nric, _name, _email, _wallet_address);
     }
 
     // Claiming a property with solidity ethereum
-    function registerProperty (string memory _owner, address _address, uint _amount, string memory _id, string memory _street_address, string memory _unit, string memory _completion_date, string memory _transaction_date, string memory _email) public{
-        // deduct balance from buyer's wallet
-        balance[_address] -= _amount;
-        
+    function registerProperty (string memory _owner, address _address, string memory _id, string memory _street_address, string memory _unit, string memory _completion_date, string memory _email, bool _sale, string memory _sale_price) public{
         pListID ++;
-        // register buyer
+
+        PropertyLandContract.Sale memory forSale = Sale(_sale, _sale_price);
         PropertyLandContract.User memory newOwner = User(_id, _owner, _email, _address);
-        propertyList[pListID] = Property(pListID, _street_address, _unit, _completion_date, _transaction_date, newOwner); // Registers a new owner into a property and stores into a list
+        propertyList[pListID] = Property(pListID, _street_address, _unit, _completion_date, newOwner, forSale); // Registers a new owner into a property and stores into a list
     }
 
     // Transferring ownership of a property, all user information parsed must be buyer's info.
-    function transferProperty (uint _propertyID, string memory _owner, address _address, uint _amount, string memory _id, string memory _street_address, string memory _unit, string memory _completion_date, string memory _transaction_date, string memory _email) public {
-        address receiver = propertyList[_propertyID].owner.wallet_address;
-        sendCoins(_address, receiver, _amount);
-
+    function transferProperty (uint _propertyID, string memory _owner, address _address, string memory _id, string memory _street_address, string memory _unit, string memory _completion_date, string memory _email, bool _sale, string memory _sale_price) public {
+        
+        PropertyLandContract.Sale memory forSale = Sale(_sale, _sale_price);
         PropertyLandContract.User memory newOwner = User(_id, _owner, _email, _address);
-        propertyList[_propertyID] = Property(_propertyID, _street_address, _unit, _completion_date, _transaction_date, newOwner);
+        propertyList[_propertyID] = Property(_propertyID, _street_address, _unit, _completion_date, newOwner, forSale);
     }
 
-    function getProperty (uint _propertyID) public view returns (string memory _street_address, string memory _unit, string memory _completion_date, string memory _transaction_date, string memory _owner_name, address _wallet_address) {
-        return (propertyList[_propertyID].street_address, propertyList[_propertyID].unit, propertyList[_propertyID].completion_date, propertyList[_propertyID].transaction_date, propertyList[_propertyID].owner.name, propertyList[_propertyID].owner.wallet_address);
+    function getProperty (uint _propertyID) public view returns (string memory _street_address, string memory _unit, string memory _completion_date, string memory _owner_name, address _wallet_address, bool _sale, string memory _sale_price) {
+        return (propertyList[_propertyID].street_address, propertyList[_propertyID].unit, propertyList[_propertyID].completion_date, propertyList[_propertyID].owner.name, propertyList[_propertyID].owner.wallet_address, propertyList[_propertyID].sale.for_sale, propertyList[_propertyID].sale.sale_price);
     }
 
     function getUser (address _address) public view returns (string memory _nric, string memory _name, string memory _email, address _wallet_address){
         return (userList[_address].id, userList[_address].name, userList[_address].email, userList[_address].wallet_address);
     }
-    
-    // send specified amount of coins from sender to receiver
-    function sendCoins(address sender, address receiver, uint amount) public {
-        require(amount <= balance[sender], "insufficient balance.");
-        balance[sender] -= amount;
-        balance[receiver] += amount;    
-    }
-
-    // ===== JUST A MONETARY VALUE TO FACILIATE TRANSACTIONS ON WEB APP =====
-
-    // add specified amount of coins into specified receiver's wallet address
-    function mintCoins(address receiver, uint amount) public {
-        balance[receiver] += amount;
-    }
-
-    // constructor() public {
-    //     mintCoins(0xee439FC34Ef3Df8aA8c73D9690C4B9eEffE59eC4, 5000); // add 5000 coins into 1st wallet
-    //     mintCoins(0x651BF48357bc2afC53ADAb4625E4D096eB207aC0, 10000); // add 10000 coins into 2nd wallet
-    // }
 }
