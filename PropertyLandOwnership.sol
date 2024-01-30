@@ -59,4 +59,8 @@ contract PropertyLandContract{
     function getUser (address _address) public view returns (string memory _nric, string memory _name, string memory _email, address _wallet_address){
         return (userList[_address].id, userList[_address].name, userList[_address].email, userList[_address].wallet_address);
     }
+
+    // constructor() public{
+    //     registerUser("T1111111A", "Dannie", "danniealaqif0907@gmail.com", 0x651BF48357bc2afC53ADAb4625E4D096eB207aC0);
+    // }
 }

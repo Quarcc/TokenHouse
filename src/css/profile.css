@@ -68,13 +68,30 @@ body{
     z-index: 1;
 }
 
-.no-record{
+#no-record{
     background: rgba(24, 24, 24, 0.8);
-    border-radius: 10%;
+    border-radius: 20px;
+    display: block;
 }
 
-.no-record hr{
+#no-record hr{
     color: white;
+}
+
+#record{
+    background: rgba(24, 24, 24, 0.8);
+    border-radius: 20px;
+    display: none;
+}
+
+#record hr{
+    color: white;
+}
+
+#register-property-form{
+    background: rgba(24, 24, 24, 0.8);
+    border-radius: 20px;
+    display: none;
 }
 
 .walletdisplay, .walletAddress{
@@ -90,10 +107,79 @@ body{
     background: transparent;
     border: none;
     border-bottom: 1px solid #adad9d;
+    color: white;
 }
 
 .form-floating input:focus{
     background: transparent;
     border: none;
     border-bottom: 1px solid #adad9d;
+    color: white;
+}
+
+.profile-info, .update-property-info{
+    color: white;
+}
+
+.profile-info-header, .update-property-info-header{
+    font-weight: 600;
+}
+
+.owned-properties-header{
+    font-weight: 700;
+    color: white;
+    font-size: 30px;
+}
+
+.register-property-header{
+    font-weight: 600;
+    font-size: 30px;
+    color: white;
+}
+
+#register-property-form hr{
+    color: white;
+}
+
+#update-property-form{
+    background: rgba(24, 24, 24, 0.8);
+    border-radius: 20px;
+    color: white;
+    display: none;
+}
+
+#update-property-form hr{
+    color: white;
+}
+
+.sale-info{
+    color: white;
+}
+
+#profileProperty{
+    background-color: rgba(24, 24, 24, 0.75);
+    z-index: 1;
+}
+
+.owned-property-list{
+    background: rgba(24, 24, 24, 0.8);
+    border-radius: 20px;
+}
+
+.profile-streetaddress{
+    color: white;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.owned-property-list hr{
+    color: white;
+}
+
+.profile-owned-property-info{
+    color: white;
+}
+
+.profile-propertyid{
+    color: rgba(255, 255, 255, 0.8)
 }
