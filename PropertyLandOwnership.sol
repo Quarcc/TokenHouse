@@ -62,5 +62,7 @@ contract PropertyLandContract{
 
     // constructor() public{
     //     registerUser("T1111111A", "Dannie", "danniealaqif0907@gmail.com", 0x651BF48357bc2afC53ADAb4625E4D096eB207aC0);
+    //     registerProperty("Dannie", 0x651BF48357bc2afC53ADAb4625E4D096eB207aC0, "T1111111A", "Ang Mo Kio Street 66", "04-01", "99 Years", "danniealaqif0907@gmail.com", false, "0.0");
+    //     registerProperty("Dannie", 0x651BF48357bc2afC53ADAb4625E4D096eB207aC0, "T1111111A", "Sembawang Drive", "08-341", "99 Years", "danniealaqif0907@gmail.com", true, "0.01");
     // }
 }

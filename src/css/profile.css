@@ -24,6 +24,7 @@ html{
 
 body{
     font-family: 'GeneralSans-Variable';
+    height: 100vh !important;
 }
 
 .navbar{
@@ -128,7 +129,7 @@ body{
 .owned-properties-header{
     font-weight: 700;
     color: white;
-    font-size: 30px;
+    font-size: 40px;
 }
 
 .register-property-header{
