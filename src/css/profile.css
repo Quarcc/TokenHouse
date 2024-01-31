@@ -162,8 +162,13 @@ body{
     z-index: 1;
 }
 
-.owned-property-list{
-    background: rgba(24, 24, 24, 0.8);
+.owned-property-list-true{
+    background: rgba(61, 126, 81, 0.8);
+    border-radius: 20px;
+}
+
+.owned-property-list-false{
+    background: rgba(126, 61, 61, 0.8);
     border-radius: 20px;
 }
 

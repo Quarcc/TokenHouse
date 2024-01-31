@@ -2,10 +2,41 @@ $(document).ready(function(){
     $(".walletAddress").append(localStorage.getItem("CurrAddress"));
   });
 
+// ===== RETURN FUNCTIONS =====
+
+function returnRegister(){
+  var record = document.getElementById("record");
+  var form = document.getElementById("register-property-form");
+  record.style.display = "block";
+  form.style.display = "none";
+}
+
+function returnUpdate(){
+  var record = document.getElementById("record");
+  var update = document.getElementById("update-property-form");
+  var ownedlist = document.getElementById("profileProperty");
+  var ownedlistHeader = document.getElementById("owned-property-list");
+  record.style.display = "block";
+  ownedlist.style.display = "block";
+  ownedlistHeader.style.display = "block";
+  update.style.display = "none";
+}
+
+// ===== OBTAIN METAMASK ACCOUNT BALANCE =====
+
+OwnershipRegistrationApp.prototype.userBalance = async function() {
+  var currentadd = localStorage.getItem("CurrAddress");
+  var balanceHEX = await window.ethereum.request({ "method": "eth_getBalance", "params": [currentadd, "latest"]});
+  var balanceWEI = parseInt(balanceHEX, 16);
+  var balanceLong = balanceWEI / 10e17
+  var balance = parseFloat(balanceLong).toFixed(4);
+  $(".ethbalance").append('<svg xmlns="http://www.w3.org/2000/svg" width="0.63em" height="1em" viewBox="0 0 320 512"><path fill="currentColor" d="M311.9 260.8L160 353.6L8 260.8L160 0zM160 383.4L8 290.6L160 512l152-221.4z"/></svg>&nbsp' + balance)
+}
+
 // ===== ACTUALLY SEND ETH =====
 
-async function sendTransaction(){
-  await window.ethereum.enable();
+OwnershipRegistrationApp.prototype.sendTransaction = function() {
+  var that = this;
   var price = localStorage.getItem("purchasePrice");
   var receiver = localStorage.getItem("purchaseReceiver");
 
@@ -17,10 +48,13 @@ async function sendTransaction(){
     "value": Number(price*10e17).toString(16),
   }];
 
-  let result = await window.ethereum.request({method: "eth_sendTransaction", params}).catch((err)=>{
+  try {
+    let result = window.ethereum.request({ method: "eth_sendTransaction", params });
+    // process the result if needed
+    that.transferOwnership();
+  } catch (err) {
     console.log(err);
-  });
-
+  }
 }
 
 // ===== BLOCKCHAIN RELATED JS =====
@@ -276,7 +310,7 @@ var Contracts = { OwnershipContract:  {
       "type": "constructor"
     }
   ],
-  address: "0x28ca586b8c58ab5dc46701746a9fbf227d35ee86",
+  address: "0xfe77500233645ce65200534ee1468aa1791a54bd",
   endpoint: "https://sepolia.infura.io/v3/"
  }}
 
@@ -291,7 +325,7 @@ OwnershipRegistrationApp.prototype.onReady = function() {
       $('#message').append("DApp loaded successfully.");
   });
   this.bindButtons();
-  this.loadOwnedPropertyList(); // call the loadHouseRegistration func to display the house registration list
+  this.loadOwnedPropertyList();
 }
 
 OwnershipRegistrationApp.prototype.init = function(cb) {
@@ -334,7 +368,6 @@ OwnershipRegistrationApp.prototype.getProperty = function (propertyNo, cb) {
 
 OwnershipRegistrationApp.prototype.loadOwnedPropertyList = function () {
   var that = this;
-  var a = 0;
   this.getpListID(function (error, pListID) {
     if (error) {
         console.log(error);
@@ -346,16 +379,16 @@ OwnershipRegistrationApp.prototype.loadOwnedPropertyList = function () {
           console.log(error);
         }
         var ownerWallet = property[4];
-        console.log(ownerWallet);
+        var status = property[5];
         var currentWallet = localStorage.getItem("CurrAddress").toLowerCase();
         if (ownerWallet == currentWallet){
-          if (a > 1){
+          if (status){
             var propertyAddress = property[0];
             var propertyUnit = property[1];
             var propertyLife = property[2];
             var propertySaleStats = property[5];
             var propertySalePrice = property[6];
-            var ownedPropertyTemplate = '<div class="container d-flex justify-content-center align-items-center mt-5"><div class="container-flex col-xl-12 owned-property-list"><div class="py-5 px-5"><div class="row content d-flex justify-content-center align-items-center g-0"><div class="col"><div class="profile-owned-property-info"><div class="profile-streetaddress">' + propertyAddress + '</div></div></div><div class="col"><div class="profile-owned-property-info d-flex justify-content-end"><div class="profile-propertyid">' + '# ' + i + '</div></div></div></div><hr><div class="row content d-flex justify-content-center align-items-center g-0"><div class="mb-1"><div class="profile-owned-property-info"><div class="profile-propertyunit">' + '<b>Property Unit Number:</b> #' + propertyUnit + '</div></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="col"><div class="profile-owned-property-info"><div class="profile-propertylife">' + '<b>Property Lifespan: </b>' + propertyLife + '</div></div></div><div class="col"><div class="profile-owned-property-info"><div class="profile-propertysalestats">' + '<b>For Sale: </b>' + propertySaleStats + '</div></div></div><div class="col"><div class="profile-owned-property-info"><div class="profile-propertysaleprice">' + '<b>Sales Price:</b> ' + propertySalePrice + ' ETH' + '</div></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="profile-owned-property-info"><button class="btn btn-primary profile-updatestatus button-update-sales-status mt-4" onclick="updateStatus(' + i + ')">' + 'Update Sales Info' + '</button></div></div></div></div></div>';
+            var ownedPropertyTemplate = '<div class="container d-flex justify-content-center align-items-center mt-5"><div class="container-flex col-xl-12 owned-property-list-true"><div class="py-5 px-5"><div class="row content d-flex justify-content-center align-items-center g-0"><div class="col"><div class="profile-owned-property-info"><div class="profile-streetaddress">' + propertyAddress + '</div></div></div><div class="col"><div class="profile-owned-property-info d-flex justify-content-end"><div class="profile-propertyid">' + '# ' + i + '</div></div></div></div><hr><div class="row content d-flex justify-content-center align-items-center g-0"><div class="mb-1"><div class="profile-owned-property-info"><div class="profile-propertyunit">' + '<b>Property Unit Number:</b> #' + propertyUnit + '</div></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="col"><div class="profile-owned-property-info"><div class="profile-propertylife">' + '<b>Property Lifespan: </b>' + propertyLife + '</div></div></div><div class="col"><div class="profile-owned-property-info"><div class="profile-propertysalestats">' + '<b>For Sale: </b>' + propertySaleStats + '</div></div></div><div class="col"><div class="profile-owned-property-info"><div class="profile-propertysaleprice">' + '<b>Sales Price:</b> ' + propertySalePrice + ' ETH' + '</div></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="profile-owned-property-info"><button class="btn btn-primary profile-updatestatus button-update-sales-status mt-4" onclick="updateStatus(' + i + ')">' + 'Update Sales Info' + '</button></div></div></div></div></div>';
             $("#OwnedPropertyList").append(ownedPropertyTemplate);
           }
           else{
@@ -364,10 +397,10 @@ OwnershipRegistrationApp.prototype.loadOwnedPropertyList = function () {
             var propertyLife = property[2];
             var propertySaleStats = property[5];
             var propertySalePrice = property[6];
-            var ownedPropertyTemplate = '<div class="container d-flex justify-content-center align-items-center mt-5"><div class="container-flex col-xl-12 owned-property-list"><div class="py-5 px-5"><div class="row content d-flex justify-content-center align-items-center g-0"><div class="col"><div class="profile-owned-property-info"><div class="profile-streetaddress">' + propertyAddress + '</div></div></div><div class="col"><div class="profile-owned-property-info d-flex justify-content-end"><div class="profile-propertyid">' + '# ' + i + '</div></div></div></div><hr><div class="row content d-flex justify-content-center align-items-center g-0"><div class="mb-1"><div class="profile-owned-property-info"><div class="profile-propertyunit">' + '<b>Property Unit Number:</b> #' + propertyUnit + '</div></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="col"><div class="profile-owned-property-info"><div class="profile-propertylife">' + '<b>Property Lifespan: </b>' + propertyLife + '</div></div></div><div class="col"><div class="profile-owned-property-info"><div class="profile-propertysalestats">' + '<b>For Sale: </b>' + propertySaleStats + '</div></div></div><div class="col"><div class="profile-owned-property-info"><div class="profile-propertysaleprice">' + '<b>Sales Price:</b> ' + propertySalePrice + ' ETH' + '</div></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="profile-owned-property-info"><button class="btn btn-primary profile-updatestatus button-update-sales-status mt-4" onclick="updateStatus(' + i + ')">' + 'Update Sales Info' + '</button></div></div></div></div></div>';
+            var ownedPropertyTemplate = '<div class="container d-flex justify-content-center align-items-center mt-5"><div class="container-flex col-xl-12 owned-property-list-false"><div class="py-5 px-5"><div class="row content d-flex justify-content-center align-items-center g-0"><div class="col"><div class="profile-owned-property-info"><div class="profile-streetaddress">' + propertyAddress + '</div></div></div><div class="col"><div class="profile-owned-property-info d-flex justify-content-end"><div class="profile-propertyid">' + '# ' + i + '</div></div></div></div><hr><div class="row content d-flex justify-content-center align-items-center g-0"><div class="mb-1"><div class="profile-owned-property-info"><div class="profile-propertyunit">' + '<b>Property Unit Number:</b> #' + propertyUnit + '</div></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="col"><div class="profile-owned-property-info"><div class="profile-propertylife">' + '<b>Property Lifespan: </b>' + propertyLife + '</div></div></div><div class="col"><div class="profile-owned-property-info"><div class="profile-propertysalestats">' + '<b>For Sale: </b>' + propertySaleStats + '</div></div></div><div class="col"><div class="profile-owned-property-info"><div class="profile-propertysaleprice">' + '<b>Sales Price:</b> ' + propertySalePrice + ' ETH' + '</div></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="profile-owned-property-info"><button class="btn btn-primary profile-updatestatus button-update-sales-status mt-4" onclick="updateStatus(' + i + ')">' + 'Update Sales Info' + '</button></div></div></div></div></div>';
             $("#OwnedPropertyList").append(ownedPropertyTemplate);
-            a += 1;
           }
+          
         }
       });
     }
@@ -378,7 +411,7 @@ OwnershipRegistrationApp.prototype.bindButtons = function(){
   var that = this;
 
   $(document).on("click", "#button-register-property", function(){
-      that.registerProperty(); //call the registerNewHouse function when the button-register is clicked
+    that.registerProperty(); //call the registerNewHouse function when the button-register is clicked
   });
   $(document).on("click", "#button-register-user", function(){
       that.registerUser();
@@ -406,8 +439,11 @@ OwnershipRegistrationApp.prototype.bindButtons = function(){
   $(document).on("click", ".button-sale", function(){
     that.getPropertyPrice();
   });
-  $(document).on("click", "#", function(){
-    that.getPropertyPrice();
+  $(document).on("click", "#button-purchase-property", function(){
+    that.sendTransaction();
+  });
+  $(document).ready(function(){
+    that.userBalance();
   });
 };
 
@@ -633,7 +669,7 @@ OwnershipRegistrationApp.prototype.loadSales = function () {
           var propertyLife = property[2];
           var propertySaleStats = property[5];
           var propertySalePrice = property[6];
-          var salePropertyTemplate = '<div class="container d-flex justify-content-center align-items-center mt-5"><div class="container-flex col-xl-12 sale-property-list"><div class="py-5 px-5"><div class="row content d-flex justify-content-center align-items-center g-0"><div class="col"><div class="sale-property-info"><div class="sale-streetaddress">' + propertyAddress + '</div></div></div><div class="col"><div class="sale-property-info d-flex justify-content-end"><div class="sale-propertyid">' + '# ' + i + '</div></div></div></div><hr><div class="row content d-flex justify-content-center align-items-center g-0"><div class="mb-1"><div class="sale-property-info"><div class="sale-propertyunit">' + '<b>Property Unit Number:</b> #' + propertyUnit + '</div></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="col"><div class="sale-property-info"><div class="sale-propertylife">' + '<b>Property Lifespan: </b>' + propertyLife + '</div></div></div><div class="col"><div class="sale-property-info"><div class="sale-propertysalestats">' + '<b>For Sale: </b>' + propertySaleStats + '</div></div></div><div class="col"><div class="sale-property-info"><div class="sale-propertysaleprice">' + '<b>Sales Price:</b> ' + propertySalePrice + ' ETH' + '</div></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="sale-owned-property-info"><button class="btn btn-primary button-sale mt-4" onclick="purchaseProperty(' + i + ')">' + 'Purchase' + '</button></div></div></div></div></div>';
+          var salePropertyTemplate = '<div class="container d-flex justify-content-center align-items-center mt-5"><div class="container-flex col-xl-12 sale-property-list"><div class="py-5 px-5"><div class="row content d-flex justify-content-center align-items-center g-0"><div class="col"><div class="sale-property-info"><div class="sale-streetaddress">' + propertyAddress + '</div></div></div><div class="col"><div class="sale-property-info d-flex justify-content-end"><div class="sale-propertyid">' + '# ' + i + '</div></div></div></div><hr><div class="row content d-flex justify-content-center align-items-center g-0"><div class="mb-1"><div class="sale-property-info"><div class="sale-propertyunit">' + '<b>Property Unit Number:</b> #' + propertyUnit + '</div></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="col"><div class="sale-property-info"><div class="sale-propertylife">' + '<b>Property Lifespan: </b>' + propertyLife + '</div></div></div><div class="col"><div class="sale-property-info"><div class="sale-propertysalestats">' + '<b>For Sale: </b>' + propertySaleStats + '</div></div></div><div class="col"><div class="sale-property-info"><div class="sale-propertysaleprice">' + '<b>Sales Price:</b> ' + propertySalePrice + ' ETH' + '</div></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="sale-owned-property-info"><button class="btn btn-primary button-sale mt-4" id="button-sale-transfer" onclick="purchaseProperty(' + i + ')">' + 'Purchase' + '</button></div></div></div></div></div>';
           $("#cataloglist").append(salePropertyTemplate);
         }
       });
@@ -655,6 +691,10 @@ OwnershipRegistrationApp.prototype.transferOwnership = function() {
       var newnric = info[0];
       var newemail = info[2];
       var newaddress = info[3];
+      localStorage.setItem("successPropertyOwner", newfname);
+      localStorage.setItem("successPropertyNRIC", newnric);
+      localStorage.setItem("successPropertyEmail", newemail);
+      localStorage.setItem("successPropertyWallet", newaddress);
       that.instance.getProperty(soldpropertyid, function(error, property){
         if(error){
           console.log(error)
@@ -662,26 +702,42 @@ OwnershipRegistrationApp.prototype.transferOwnership = function() {
         var salePropertyAddress = property[0];
         var salePropertyUnit = property[1];
         var salePropertyLife = property[2];
-        var setPropertySaleStatus = false;
-        var setPropertySalePrice = "0";
-        that.instance.transferProperty(soldpropertyid, newfname, newaddress, newnric, salePropertyAddress, salePropertyUnit, salePropertyLife, newemail, setPropertySaleStatus, setPropertySalePrice,
-          // gas required to execure the transcation
-          { from: this.web3.eth.accounts[0], gas: 1000000, gasPrice: 1000000000, gasLimit: 1000000},
-          function(){
-              if(error){
-                  console.log(error);
-              }
-              else
-              {
-                if(receipt.status == 1) {
-                  console.log('hi');
-                }
-                else{
-                    $("#message").text("Transfer Failed");
-                }
-              }
-          })
+        localStorage.setItem("successPropertyAddress", salePropertyAddress);
+        localStorage.setItem("successPropertyUnit", salePropertyUnit);
+        localStorage.setItem("successPropertyLife", salePropertyLife);
+        that.officialTransfer();
       })
     }
-})
+  })
+}
+
+OwnershipRegistrationApp.prototype.officialTransfer = function(){
+  var soldPropertyID = localStorage.getItem("purchaseProp");
+  var soldPropertyOwner = localStorage.getItem("successPropertyOwner");
+  var soldPropertyWallet = localStorage.getItem("successPropertyWallet");
+  var soldPropertyNRIC = localStorage.getItem("successPropertyNRIC");
+  var soldPropertyAddress = localStorage.getItem("successPropertyAddress");
+  var soldPropertyUnit = localStorage.getItem("successPropertyUnit");
+  var soldPropertyLife = localStorage.getItem("successPropertyLife");
+  var soldPropertyEmail = localStorage.getItem("successPropertyEmail");
+  var soldPropertySaleStatus = false;
+  var soldPropertySalePrice = "0";
+
+  this.instance.transferProperty(soldPropertyID, soldPropertyOwner, soldPropertyWallet, soldPropertyNRIC, soldPropertyAddress, soldPropertyUnit, soldPropertyLife, soldPropertyEmail, soldPropertySaleStatus, soldPropertySalePrice,
+    // gas required to execure the transcation
+    { from: this.web3.eth.accounts[0], gas: 1000000, gasPrice: 1000000000, gasLimit: 1000000},
+    function(){
+      if(error){
+        console.log(error);
+      }
+      else{
+        if(receipt.status == 1){
+
+        }
+        else{
+          $("#message").text("Transfer Failed");
+        }
+      }
+    }
+  )
 }

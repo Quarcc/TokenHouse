@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     } else {
         // Metamask not detected
+        $("#loginconfirmation").prop('disabled', true);
         displayWalletAddress("Metamask not detected. Please install Metamask to use this feature.");
     }
   });
@@ -35,5 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
   function displayWalletAddress(address) {
     var walletAddressElement = document.getElementById('walletAddress');
+    var walletAddressConfirmation = document.getElementById('confirmedAddress');
+    walletAddressConfirmation.textContent = address || "Not connected to Metamask";
     walletAddressElement.textContent = address || "Not connected to Metamask";
   };

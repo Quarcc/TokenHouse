@@ -34,6 +34,9 @@
                 <!-- Sidebar body -->
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item mx-auto">
+                            <div class="nav-link ms-2 navbar-text"><p class="navbartext ethbalance" style="text-decoration: underline;"></p></div>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link mx-2 navbar-text" href="#"><p class="navbartext">Catalog</p></a>
                         </li>
@@ -54,7 +57,53 @@
             <div class="d-flex vh-80 justify-content-center align-items-center">
                 <div class="col-xl-12 col-lg-12 col-md-6 col-sm-6">
                     <div class="container d-flex vh-100 justify-content-start align-items-center" id="cataloglist">
-                        
+                        <div class="container d-flex justify-content-center align-items-center mt-5">
+                            <div class="container-flex col-xl-12 sale-property-list">
+                                <div class="py-5 px-5">
+                                    <div class="row content d-flex justify-content-center align-items-center g-0">
+                                        <div class="col">
+                                            <div class="sale-property-info">
+                                                <div class="sale-streetaddress">Ang Mo Kio Street 66</div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="sale-property-info d-flex justify-content-end">
+                                                <div class="sale-propertyid"># 1</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row content d-flex justify-content-center align-items-center g-0">
+                                        <div class="mb-1">
+                                            <div class="sale-property-info">
+                                                <div class="sale-propertyunit"><b>Property Unit Number:</b> #04-01</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row content d-flex justify-content-center align-items-center g-0">
+                                        <div class="col">
+                                            <div class="sale-property-info">
+                                                <div class="sale-propertylife"><b>Property Lifespan: </b>99 Years</div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="sale-property-info">
+                                                <div class="sale-propertysalestats"><b>For Sale: </b>true</div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="sale-property-info">
+                                                <div class="sale-propertysaleprice"><b>Sales Price:</b> 0.1 ETH</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row content d-flex justify-content-center align-items-center g-0">
+                                        <div class="sale-owned-property-info"><button class="btn btn-primary button-sale mt-4"
+                                                id="button-sale-transfer" onclick="purchaseProperty(1)">Purchase</button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
