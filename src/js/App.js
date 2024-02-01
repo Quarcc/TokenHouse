@@ -310,7 +310,7 @@ var Contracts = { OwnershipContract:  {
       "type": "constructor"
     }
   ],
-  address: "0x23858fb9c55b27c1c4a26e822fc642cba0b5549b",
+  address: "0xc3044c6aacb89e45321dab1c49c859e6e63e065a",
   endpoint: "https://sepolia.infura.io/v3/"
  }}
 
@@ -445,6 +445,9 @@ OwnershipRegistrationApp.prototype.bindButtons = function(){
   $(document).ready(function(){
     that.userBalance();
   });
+  $(document).ready(function(){
+    that.loadPurchaseConfirmation();
+  })
 };
 
 // function to run check if user exists
@@ -641,8 +644,16 @@ OwnershipRegistrationApp.prototype.getPropertyPrice =  function() {
           }
           var saleprice = property[6];
           var saleperson = property[4];
+          var saleowner = property[3];
+          var saleaddress = property[0];
+          var saleunit = property[1];
+          var salelife = property[2];
           localStorage.setItem("purchasePrice", saleprice);
           localStorage.setItem("purchaseReceiver", saleperson);
+          localStorage.setItem("purchaseOwner", saleowner);
+          localStorage.setItem("purchaseAddress", saleaddress);
+          localStorage.setItem("purchaseUnit", saleunit);
+          localStorage.setItem("purchaseLife", salelife);
           window.location.replace("payment.html");
         });
       }
@@ -740,4 +751,21 @@ OwnershipRegistrationApp.prototype.officialTransfer = function(){
       }
     }
   )
+}
+
+OwnershipRegistrationApp.prototype.loadPurchaseConfirmation = function(){
+  // var saleprice = property[6];
+  // var saleperson = property[4];
+  // var saleowner = property[3];
+  // var saleaddress = property[0];
+  // var saleunit = property[1];
+  // var salelife = property[2];
+  // localStorage.setItem("purchasePrice", saleprice);
+  // localStorage.setItem("purchaseReceiver", saleperson);
+  // localStorage.setItem("purchaseOwner", saleowner);
+  // localStorage.setItem("purchaseAddress", saleaddress);
+  // localStorage.setItem("purchaseUnit", saleunit);
+  // localStorage.setItem("purchaseLife", salelife);
+  var confirmAddress = localStorage.getItem("purchaseAddress");
+  var confirm
 }
