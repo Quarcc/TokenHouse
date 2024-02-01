@@ -69,11 +69,6 @@ body{
     position: fixed;
 }
 
-#catalog{
-    z-index: 1;
-    background: rgba(24, 24, 24, 0.75);
-}
-
 .sale-property-list{
     background: rgba(24, 24, 24, 0.8);
     border-radius: 20px;

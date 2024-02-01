@@ -310,7 +310,7 @@ var Contracts = { OwnershipContract:  {
       "type": "constructor"
     }
   ],
-  address: "0x068f4a77f8b318baaefbe275eba757097fda495a",
+  address: "0x23858fb9c55b27c1c4a26e822fc642cba0b5549b",
   endpoint: "https://sepolia.infura.io/v3/"
  }}
 
