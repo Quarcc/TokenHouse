@@ -1,0 +1,99 @@
+@font-face {
+    font-family: 'Technor-Black';
+    src: url('../font/Technor-Black.woff2') format('woff2'),
+         url('../font/Technor-Black.woff') format('woff'),
+         url('../font/Technor-Black.ttf') format('truetype');
+         font-weight: 900;
+         font-display: swap;
+         font-style: normal;
+}
+
+@font-face {
+    font-family: 'GeneralSans-Variable';
+    src: url('../font/GeneralSans-Variable.woff2') format('woff2'),
+         url('../font/GeneralSans-Variable.woff') format('woff'),
+         url('../font/GeneralSans-Variable.ttf') format('truetype');
+         font-weight: 200 700;
+         font-display: swap;
+         font-style: normal;
+} 
+
+html{ 
+    scroll-behavior: smooth;
+}
+
+body{
+    font-family: 'GeneralSans-Variable';
+    height: 100vh !important;
+}
+
+.navbar{
+    background-color: transparent;
+}
+
+.login-hidden-nav{
+    display: none;
+}
+
+.logo-name{
+    font-family: 'Technor-Black';
+    color: white;
+}
+
+.navbartext{
+    font-weight: 700;
+    color: white;
+}
+
+#mm-logout{
+    background-color: #C6BEAC;
+    border: 1px solid #C6BEAC;
+    border-radius: 20px;
+    font-weight: bold;
+    color: black;
+}
+
+#mm-logout:hover{
+    background-color: #FFFFFF;
+}
+
+.mainimg{
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    position: fixed;
+}
+
+.loginbg{
+    background-color: rgba(24, 24, 24, 0.8);
+    border-radius: 10px;
+    color: white;
+    width: 100%;
+}
+
+.paymentAddress{
+    color: white;
+    font-weight: 700;
+    font-size: 25px;
+    text-decoration: underline;
+}
+
+.paymentAddressID{
+    color: rgba(255, 255, 255, 0.8)
+}
+
+.paymentAmount, .paymentLifespan{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.paymentAmountEth{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.paymentOwnerInfo{
+    font-size: 19px;
+    font-weight: 550;
+    text-decoration: underline;
+}

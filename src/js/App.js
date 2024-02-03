@@ -22,6 +22,10 @@ function returnUpdate(){
   update.style.display = "none";
 }
 
+function returnCatalog(){
+  window.location.replace('catalog.html');
+}
+
 // ===== OBTAIN METAMASK ACCOUNT BALANCE =====
 
 OwnershipRegistrationApp.prototype.userBalance = async function() {
@@ -35,7 +39,7 @@ OwnershipRegistrationApp.prototype.userBalance = async function() {
 
 // ===== ACTUALLY SEND ETH =====
 
-OwnershipRegistrationApp.prototype.sendTransaction = function() {
+OwnershipRegistrationApp.prototype.sendTransaction = async function() {
   var that = this;
   var price = localStorage.getItem("purchasePrice");
   var receiver = localStorage.getItem("purchaseReceiver");
@@ -49,7 +53,7 @@ OwnershipRegistrationApp.prototype.sendTransaction = function() {
   }];
 
   try {
-    let result = window.ethereum.request({ method: "eth_sendTransaction", params });
+    var result = await window.ethereum.request({ method: "eth_sendTransaction", params });
     // process the result if needed
     that.transferOwnership();
   } catch (err) {
@@ -310,7 +314,7 @@ var Contracts = { OwnershipContract:  {
       "type": "constructor"
     }
   ],
-  address: "0xc3044c6aacb89e45321dab1c49c859e6e63e065a",
+  address: "0x471d2d0edaf455685fae72ade3032f3a534a8051",
   endpoint: "https://sepolia.infura.io/v3/"
  }}
 
@@ -447,7 +451,7 @@ OwnershipRegistrationApp.prototype.bindButtons = function(){
   });
   $(document).ready(function(){
     that.loadPurchaseConfirmation();
-  })
+  });
 };
 
 // function to run check if user exists
@@ -654,7 +658,16 @@ OwnershipRegistrationApp.prototype.getPropertyPrice =  function() {
           localStorage.setItem("purchaseAddress", saleaddress);
           localStorage.setItem("purchaseUnit", saleunit);
           localStorage.setItem("purchaseLife", salelife);
-          window.location.replace("payment.html");
+          that.getUser(saleperson,  function(error, info){
+            if(error){
+              console.log(error)
+            }
+            if(info[0] != null){
+              var saleemail = info[2];
+              localStorage.setItem("purchaseEmail", saleemail);
+              window.location.replace("payment.html");
+            }
+          })
         });
       }
     }
@@ -680,7 +693,7 @@ OwnershipRegistrationApp.prototype.loadSales = function () {
           var propertyLife = property[2];
           var propertySaleStats = property[5];
           var propertySalePrice = property[6];
-          var salePropertyTemplate = '<div class="container d-flex justify-content-center align-items-center mt-5"><div class="container-flex col-xl-12 sale-property-list"><div class="py-5 px-5"><div class="row content d-flex justify-content-center align-items-center g-0"><div class=""><div class="sale-property-info d-flex justify-content-center align-items-center"><img src="src/img/logo.png" alt="" style="max-width: 200px;"></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="col"><div class="sale-property-info"><div class="sale-streetaddress">' + propertyAddress + '</div></div></div><div class="col"><div class="sale-property-info d-flex justify-content-end"><div class="sale-propertyid">' + '# ' + i + '</div></div></div></div><hr><div class="row content d-flex justify-content-center align-items-center g-0"><div class="mb-1"><div class="sale-property-info"><div class="sale-propertyunit">' + '<b>Property Unit Number:</b> #' + propertyUnit + '</div></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="col"><div class="sale-property-info"><div class="sale-propertylife">' + '<b>Property Lifespan: </b>' + propertyLife + '</div></div></div><div class="col"><div class="sale-property-info"><div class="sale-propertysalestats">' + '<b>For Sale: </b>' + propertySaleStats + '</div></div></div><div class="col"><div class="sale-property-info"><div class="sale-propertysaleprice">' + '<b>Sales Price:</b> ' + propertySalePrice + ' ETH' + '</div></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="sale-property-info"><button class="btn btn-primary button-sale mt-4" id="button-sale-transfer" onclick="purchaseProperty(' + i + ')">' + 'Purchase' + '</button></div></div></div></div></div>';
+          var salePropertyTemplate = '<div class="container d-flex justify-content-center align-items-center mt-5"><div class="container-flex col-xl-12 sale-property-list"><div class="pt-3 pb-5 px-5"><div class="row content d-flex justify-content-center align-items-center g-0"><div class=""><div class="sale-property-info d-flex justify-content-center align-items-center"><img src="src/img/logo.png" alt="" style="max-width: 150px;"></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="col"><div class="sale-property-info"><div class="sale-streetaddress">' + propertyAddress + '</div></div></div><div class="col"><div class="sale-property-info d-flex justify-content-end"><div class="sale-propertyid">' + '# ' + i + '</div></div></div></div><hr><div class="row content d-flex justify-content-center align-items-center g-0"><div class="mb-1"><div class="sale-property-info"><div class="sale-propertyunit">' + '<b>Property Unit Number:</b> #' + propertyUnit + '</div></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="col"><div class="sale-property-info"><div class="sale-propertylife">' + '<b>Property Lifespan: </b>' + propertyLife + '</div></div></div><div class="col"><div class="sale-property-info"><div class="sale-propertysalestats">' + '<b>For Sale: </b>' + propertySaleStats + '</div></div></div><div class="col"><div class="sale-property-info"><div class="sale-propertysaleprice">' + '<b>Sales Price:</b> ' + propertySalePrice + ' ETH' + '</div></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="sale-property-info"><button class="btn btn-primary button-sale mt-4" id="button-sale-transfer" onclick="purchaseProperty(' + i + ')">' + 'Purchase' + '</button></div></div></div></div></div>';
           $("#cataloglist").append(salePropertyTemplate);
         }
       });
@@ -754,18 +767,20 @@ OwnershipRegistrationApp.prototype.officialTransfer = function(){
 }
 
 OwnershipRegistrationApp.prototype.loadPurchaseConfirmation = function(){
-  // var saleprice = property[6];
-  // var saleperson = property[4];
-  // var saleowner = property[3];
-  // var saleaddress = property[0];
-  // var saleunit = property[1];
-  // var salelife = property[2];
-  // localStorage.setItem("purchasePrice", saleprice);
-  // localStorage.setItem("purchaseReceiver", saleperson);
-  // localStorage.setItem("purchaseOwner", saleowner);
-  // localStorage.setItem("purchaseAddress", saleaddress);
-  // localStorage.setItem("purchaseUnit", saleunit);
-  // localStorage.setItem("purchaseLife", salelife);
   var confirmAddress = localStorage.getItem("purchaseAddress");
-  var confirm
+  var confirmUnit = localStorage.getItem("purchaseUnit");
+  var confirmPropertyID = localStorage.getItem("purchaseProp");
+  var confirmPrice = localStorage.getItem("purchasePrice");
+  var confirmLifespan = localStorage.getItem("purchaseLife");
+  var confirmName = localStorage.getItem("purchaseOwner");
+  var confirmEmail = localStorage.getItem("purchaseEmail");
+  var confirmWallet = localStorage.getItem("purchaseReceiver");
+
+  $(".paymentAddress").append(confirmAddress + '&nbsp<div class="paymentAddressUnit">#' + confirmUnit + '</div>');
+  $(".paymentAddressID").append('# ' + confirmPropertyID);
+  $(".paymentAmountEth").append('&nbsp&nbsp&nbsp<svg xmlns="http://www.w3.org/2000/svg" width="0.63em" height="1em" viewBox="0 0 320 512"><path fill="currentColor" d="M311.9 260.8L160 353.6L8 260.8L160 0zM160 383.4L8 290.6L160 512l152-221.4z"/></svg>&nbsp' + confirmPrice + '</div>');
+  $(".paymentLifespan").append('Property Lifespan: ' + confirmLifespan);
+  $(".paymentOwnerNameResult").append(confirmName);
+  $(".paymentOwnerEmailResult").append(confirmEmail);
+  $(".paymentOwnerWalletResult").append(confirmWallet);
 }
