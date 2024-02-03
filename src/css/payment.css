@@ -97,3 +97,28 @@ body{
     font-weight: 550;
     text-decoration: underline;
 }
+
+#error-message-banner-purchase-property{
+    display: none;
+}
+
+.alert {
+    padding: 5px 10px 5px 10px;
+    background-color: rgba(244, 67, 54, 0.75);
+    color: white;
+    border: 1px solid white;
+}
+  
+.closebtn {
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 20px;
+    line-height: 24px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+  
+.closebtn:hover {
+    color: black;
+}

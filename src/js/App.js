@@ -2,6 +2,20 @@ $(document).ready(function(){
     $(".walletAddress").append(localStorage.getItem("CurrAddress"));
   });
 
+// ===== Validation =====
+
+const validateEmail = (email) => {
+  return email.match(
+    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  );
+};
+
+const validatePrice = (price) => {
+  return price.match(
+    /^\d{1,3}(?:\.\d{1,2})?$|^\.\d{1,4}$/
+  );
+};
+
 // ===== RETURN FUNCTIONS =====
 
 function returnRegister(){
@@ -34,6 +48,7 @@ OwnershipRegistrationApp.prototype.userBalance = async function() {
   var balanceWEI = parseInt(balanceHEX, 16);
   var balanceLong = balanceWEI / 10e17
   var balance = parseFloat(balanceLong).toFixed(4);
+  localStorage.setItem("CurrentUserBalance", balance);
   $(".ethbalance").append('<svg xmlns="http://www.w3.org/2000/svg" width="0.63em" height="1em" viewBox="0 0 320 512"><path fill="currentColor" d="M311.9 260.8L160 353.6L8 260.8L160 0zM160 383.4L8 290.6L160 512l152-221.4z"/></svg>&nbsp' + balance)
 }
 
@@ -43,21 +58,34 @@ OwnershipRegistrationApp.prototype.sendTransaction = async function() {
   var that = this;
   var price = localStorage.getItem("purchasePrice");
   var receiver = localStorage.getItem("purchaseReceiver");
+  var salePrice = localStorage.getItem("purchasePrice");
+  var currBalance = localStorage.getItem("CurrentUserBalance");
+  var error_display = document.getElementById("error-message-banner-purchase-property");
+  var finalPrice = parseInt(salePrice);
+  var finalBalance = parseInt(currBalance);
 
-  let params = [{
-    "from": localStorage.getItem("CurrAddress").toString(16),
-    "to": receiver,
-    "gas": Number(21000).toString(16),
-    "gasPrice": Number(2500000).toString(16),
-    "value": Number(price*10e17).toString(16),
-  }];
-
-  try {
-    var result = await window.ethereum.request({ method: "eth_sendTransaction", params });
-    // process the result if needed
-    that.transferOwnership();
-  } catch (err) {
-    console.log(err);
+  if(finalPrice <= finalBalance){
+    let params = [{
+      "from": localStorage.getItem("CurrAddress").toString(16),
+      "to": receiver,
+      "gas": Number(21000).toString(16),
+      "gasPrice": Number(2500000).toString(16),
+      "value": Number(price*10e17).toString(16),
+    }];
+  
+    try {
+      var result = await window.ethereum.request({ method: "eth_sendTransaction", params });
+      // process the result if needed
+      that.transferOwnership();
+    } catch (err) {
+      console.log(err);
+      error_display.style.display = "block";
+      $("#error-message-purchase-property").append("Transaction failed, please try again!");
+    }
+  }
+  else{
+    error_display.style.display = "block";
+    $("#error-message-purchase-property").append("You balance is too low for this purchase!");
   }
 }
 
@@ -314,7 +342,7 @@ var Contracts = { OwnershipContract:  {
       "type": "constructor"
     }
   ],
-  address: "0x471d2d0edaf455685fae72ade3032f3a534a8051",
+  address: "0xe54db44dcd8533bc345b774330e8f122f4839e39",
   endpoint: "https://sepolia.infura.io/v3/"
  }}
 
@@ -492,34 +520,62 @@ OwnershipRegistrationApp.prototype.checkUserExist = function(hash, cb){
 
 // register user on command only if user doesnt exist in mapping alr
 OwnershipRegistrationApp.prototype.registerUser = function(){
+  document.getElementById("error-message-register-user").innerHTML = "";
   var userName = $("#fname-input").val();
   var userIC = $("#id-input").val();
   var userEmail = $("#email-input").val();
   var userAddress = localStorage.getItem("CurrAddress");
+  var error_display = document.getElementById("error-message-banner-register-user");
   
-  this.instance.registerUser(userIC, userName, userEmail, userAddress,
-    //gas required to execute the transaction
-    { from: this.web3.eth.accounts[0], gas: 1000000, gasPrice: 1000000000, gasLimit: 1000000 },
-    function(){
-      if(error){
-          console.log(error);
+  if(userName == ""){
+    error_display.style.display = "block";
+    $("#error-message-register-user").append('Please enter your full name!');
+  }
+  else{
+    if(userIC == ""){
+      error_display.style.display = "block";
+      $("#error-message-register-user").append('Please enter identification number!');
+    }
+    else{
+      if(userEmail == ""){
+        error_display.style.display = "block";
+        $("#error-message-register-user").append('Please enter email address!');
       }
       else{
-        if (receipt != null){
-            $("#fname-input").val("");
-            $("#id-input").val("");
-            $("#email-input").val("");
-            that.checkUserExist();
+        if(validateEmail(userEmail)){
+          error_display.style.display = "none";
+          this.instance.registerUser(userIC, userName, userEmail, userAddress,
+            //gas required to execute the transaction
+            { from: this.web3.eth.accounts[0], gas: 1000000, gasPrice: 1000000000, gasLimit: 1000000 },
+            function(){
+              if(error){
+                  console.log(error);
+              }
+              else{
+                if (receipt.status == 1){
+                  $("#fname-input").val("");
+                  $("#id-input").val("");
+                  $("#email-input").val("");
+                  that.checkUserExist();
+                }
+                else{
+                  $("#error-message-register-user").append('Transaction failed, please try again!');
+                } 
+              }
+            }
+          )
         }
         else{
-            $("#message").text("Registration Failed");
-        } 
+          error_display.style.display = "block";
+          $("#error-message-register-user").append('Please enter a valid email address!');
+        }
       }
     }
-  )
+  }
 }
 
 OwnershipRegistrationApp.prototype.registerProperty = function(){
+  document.getElementById("error-message-register-property").innerHTML = "";
   var propertyAddress = $("#streetaddress-input").val();
   var propertyUnit = $("#unit-input").val();
   var propertyLife = $("#propertylife-input option:selected").text();
@@ -529,24 +585,49 @@ OwnershipRegistrationApp.prototype.registerProperty = function(){
   var propertyOwner = localStorage.getItem("CurrName");
   var propertyOwnerEmail = localStorage.getItem("CurrEmail");
   var propertyOwnerNRIC = localStorage.getItem("CurrNRIC");
+  var error_display = document.getElementById("error-message-banner-register-property")
 
-  this.instance.registerProperty(propertyOwner, address, propertyOwnerNRIC, propertyAddress, propertyUnit, propertyLife, propertyOwnerEmail, propertySaleStatus, propertySalePrice,
-    //gas required to execute the transaction
-    { from: this.web3.eth.accounts[0], gas: 1000000, gasPrice: 1000000000, gasLimit: 1000000 },
-    function(){
-      if(error){
-          console.log(error);
+  if(propertyAddress == ""){
+    error_display.style.display = "block";
+    $("#error-message-register-property").append('Please enter a Street Address');
+  }
+  else{
+    if(propertyUnit == ""){
+      error_display.style.display = "block";
+      $("#error-message-register-property").append('Please enter a Unit Number');
+    }
+    else{
+      if(propertySalePrice == ""){
+        error_display.style.display = "block";
+        $("#error-message-register-property").append('Please enter a Sale Price, 0 for property not for sale');
       }
       else{
-        if (receipt.status == 1){
-          window.location.href = "profile.html";
+        if(validatePrice(propertySalePrice)){
+          this.instance.registerProperty(propertyOwner, address, propertyOwnerNRIC, propertyAddress, propertyUnit, propertyLife, propertyOwnerEmail, propertySaleStatus, propertySalePrice,
+            //gas required to execute the transaction
+            { from: this.web3.eth.accounts[0], gas: 1000000, gasPrice: 1000000000, gasLimit: 1000000 },
+            function(){
+              if(error){
+                  console.log(error);
+              }
+              else{
+                if (receipt.status == 1){
+                  window.location.href = "profile.html";
+                }
+                else{
+                  $("#error-message-register-property").append('Transaction failed, please try again!');
+                } 
+              }
+            }
+          )
         }
         else{
-          $("#message").text("Registration Failed");
-        } 
+          error_display.style.display = "block";
+          $("#error-message-register-property").append('Please enter a Sale Price, 0 for property not for sale');
+        }
       }
     }
-  )
+  }
 }
 
 function updateStatus(propertyID){
@@ -596,6 +677,7 @@ OwnershipRegistrationApp.prototype.loadUpdateStatus = function(){
 }
 
 OwnershipRegistrationApp.prototype.updateSales = function(){
+  document.getElementById("error-message-update-property").innerHTML = "";
   var that = this;
   var updateID = localStorage.getItem("updateStatus");
   var updateCurrStreetAdd = localStorage.getItem("CurrStreetAdd");
@@ -607,23 +689,37 @@ OwnershipRegistrationApp.prototype.updateSales = function(){
   var updatePropertyOwnerNRIC = localStorage.getItem("CurrNRIC");
   var updatePropertySaleStatus = $("input[name='updatesalestatus']:checked").prop('value') === 'true';
   var updatePropertySales = $("#update-saleprice-input").val();
+  var error_display = document.getElementById("error-message-banner-update-property");
 
-  this.instance.transferProperty(updateID, updatePropertyOwner, updateAddress, updatePropertyOwnerNRIC, updateCurrStreetAdd, updateCurrUnitNo, updateCurrLifeSpan, updatePropertyOwnerEmail, updatePropertySaleStatus, updatePropertySales,
-      // gas required to execure the transcation
-      { from: this.web3.eth.accounts[0], gas: 1000000, gasPrice: 1000000000, gasLimit: 1000000},
-      function(){
+  if(updatePropertySales == ""){
+    error_display.style.display = "block";
+    $("#error-message-update-property").append('Please enter a Sale Price, 0 for property not for sale');
+  }
+  else{
+    if(validatePrice(updatePropertySales)){
+      this.instance.transferProperty(updateID, updatePropertyOwner, updateAddress, updatePropertyOwnerNRIC, updateCurrStreetAdd, updateCurrUnitNo, updateCurrLifeSpan, updatePropertyOwnerEmail, updatePropertySaleStatus, updatePropertySales,
+        // gas required to execure the transcation
+        { from: this.web3.eth.accounts[0], gas: 1000000, gasPrice: 1000000000, gasLimit: 1000000},
+        function(){
           if(error){
-              console.log(error);
+            console.log(error);
           }
           else{
-              if(receipt.status == 1) {
-                  
-              }
-              else{
-                  $("#message").text("Transfer Failed");
-              }
+            if(receipt.status == 1) {
+              
+            }
+            else{
+              $("#error-message-update-property").append("Transaction failed, please try again!");
+            }
           }
-      })
+        }
+      )
+    }
+    else{
+      error_display.style.display = "block";
+      $("#error-message-update-property").append('Please enter a Sale Price, 0 for property not for sale');
+    }
+  }
 }
 
 function purchaseProperty(propertyID){
@@ -767,6 +863,7 @@ OwnershipRegistrationApp.prototype.officialTransfer = function(){
 }
 
 OwnershipRegistrationApp.prototype.loadPurchaseConfirmation = function(){
+  document.getElementById("error-message-purchase-property").innerHTML = "";
   var confirmAddress = localStorage.getItem("purchaseAddress");
   var confirmUnit = localStorage.getItem("purchaseUnit");
   var confirmPropertyID = localStorage.getItem("purchaseProp");
@@ -775,6 +872,7 @@ OwnershipRegistrationApp.prototype.loadPurchaseConfirmation = function(){
   var confirmName = localStorage.getItem("purchaseOwner");
   var confirmEmail = localStorage.getItem("purchaseEmail");
   var confirmWallet = localStorage.getItem("purchaseReceiver");
+  console.log(confirmWallet);
 
   $(".paymentAddress").append(confirmAddress + '&nbsp<div class="paymentAddressUnit">#' + confirmUnit + '</div>');
   $(".paymentAddressID").append('# ' + confirmPropertyID);

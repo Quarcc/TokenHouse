@@ -85,8 +85,14 @@
                                         </div>
                                     </div>
                                 </div>
+                                <p style="color: red; font-size: 14px; font-weight: 500;">*Note information can only be uploaded once, please verify</p>
+                                <div class="d-flex justify-content-center mt-3">
+                                    <div class="alert" id="error-message-banner-register-user">
+                                        <span class="closebtn ps-2" onclick="this.parentElement.style.display='none';">&times;</span>
+                                        <span id="error-message-register-user"></span>
+                                    </div>
+                                </div>
                                 <div class="row content d-flex justify-content-center align-items-center g-0">
-                                    <p style="color: red; font-size: 14px; font-weight: 500;">*Note information can only be uploaded once, please verify</p>
                                     <div class="mt-1 d-flex justify-content-end">
                                         <button class="btn btn-primary" id="button-register-user">Submit Information</button>
                                     </div>
@@ -177,8 +183,14 @@
                                         </div>
                                     </div>
                                 </div>
+                                <p style="color: red; font-size: 14px; font-weight: 500;" class="d-flex justify-content-center">*Note information can only be uploaded once, please verify</p>
+                                <div class="d-flex justify-content-center mt-3">
+                                    <div class="alert" id="error-message-banner-register-property">
+                                        <span class="closebtn ps-2" onclick="this.parentElement.style.display='none';">&times;</span>
+                                        <span id="error-message-register-property"></span>
+                                    </div>
+                                </div>
                                 <div class="row content d-flex justify-content-center align-items-center g-0">
-                                    <p style="color: red; font-size: 14px; font-weight: 500;" class="d-flex justify-content-center">*Note information can only be uploaded once, please verify</p>
                                     <div class="mt-1 d-flex justify-content-center">
                                         <button class="btn btn-danger mb-5 me-5" id="button-register-property-cancel" onclick="returnRegister()">Cancel</button>
                                         <button class="btn btn-primary mb-5 ms-5" id="button-register-property">Register Property</button>
@@ -235,8 +247,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row content d-flex justify-content-center align-items-center g-0"></div>
-                                    <div class="mt-1 d-flex justify-content-center">
+                                <div class="d-flex justify-content-center mt-1">
+                                    <div class="alert" id="error-message-banner-update-property">
+                                        <span class="closebtn ps-2" onclick="this.parentElement.style.display='none';">&times;</span>
+                                        <span id="error-message-update-property"></span>
+                                    </div>
+                                </div>
+                                <div class="row content d-flex justify-content-center align-items-center g-0 mb-2"></div>
+                                    <div class="d-flex justify-content-center">
                                         <button class="btn btn-danger me-5" id="button-update-property-sales-cancel" onclick="returnUpdate()">Cancel</button>
                                         <button class="btn btn-primary ms-5" id="button-update-property-sales">Update Sales Information</button>
                                     </div>

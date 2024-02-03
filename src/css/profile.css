@@ -189,3 +189,28 @@ body{
 .profile-propertyid{
     color: rgba(255, 255, 255, 0.8)
 }
+
+#error-message-banner-register-user, #error-message-banner-register-property, #error-message-banner-update-property{
+    display: none;
+}
+
+.alert {
+    padding: 5px 10px 5px 10px;
+    background-color: rgba(244, 67, 54, 0.75);
+    color: white;
+    border: 1px solid white;
+}
+  
+.closebtn {
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 20px;
+    line-height: 24px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+  
+.closebtn:hover {
+    color: black;
+}
