@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
         window.ethereum.on('accountsChanged', function (accounts) {
             // Update the wallet address when the account changes
             updateWalletAddress();
+            location.reload();
         });
     } else {
         // Metamask not detected
@@ -39,4 +40,10 @@ document.addEventListener("DOMContentLoaded", function () {
     var walletAddressConfirmation = document.getElementById('confirmedAddress');
     walletAddressConfirmation.textContent = address || "Not connected to Metamask";
     walletAddressElement.textContent = address || "Not connected to Metamask";
+    if (walletAddressElement.textContent == "Not connected to Metamask"){
+      $("#loginconfirmation").prop('disabled', true);
+    }
+    else{
+      $("#loginconfirmation").prop('enabled', true);
+    }
   };
