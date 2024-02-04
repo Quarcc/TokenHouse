@@ -95,105 +95,11 @@ OwnershipRegistrationApp.prototype.sendTransaction = async function() {
 var Contracts = { OwnershipContract:  {
   abi: [
     {
-      "inputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "constructor"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "_propertyID",
-          "type": "uint256"
-        }
-      ],
-      "name": "getProperty",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "_street_address",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_unit",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_completion_date",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_owner_name",
-          "type": "string"
-        },
-        {
-          "internalType": "address",
-          "name": "_wallet_address",
-          "type": "address"
-        },
-        {
-          "internalType": "bool",
-          "name": "_sale",
-          "type": "bool"
-        },
-        {
-          "internalType": "string",
-          "name": "_sale_price",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_address",
-          "type": "address"
-        }
-      ],
-      "name": "getUser",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "_nric",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_name",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_email",
-          "type": "string"
-        },
-        {
-          "internalType": "address",
-          "name": "_wallet_address",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "pListID",
       "outputs": [
         {
-          "internalType": "uint256",
           "name": "",
           "type": "uint256"
         }
@@ -206,137 +112,42 @@ var Contracts = { OwnershipContract:  {
       "constant": false,
       "inputs": [
         {
-          "internalType": "string",
-          "name": "_owner",
-          "type": "string"
-        },
-        {
-          "internalType": "address",
-          "name": "_address",
-          "type": "address"
-        },
-        {
-          "internalType": "string",
-          "name": "_id",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_street_address",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_unit",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_completion_date",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_email",
-          "type": "string"
-        },
-        {
-          "internalType": "bool",
-          "name": "_sale",
-          "type": "bool"
-        },
-        {
-          "internalType": "string",
-          "name": "_sale_price",
-          "type": "string"
-        }
-      ],
-      "name": "registerProperty",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_nric",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_name",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_email",
-          "type": "string"
-        },
-        {
-          "internalType": "address",
-          "name": "_wallet_address",
-          "type": "address"
-        }
-      ],
-      "name": "registerUser",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "internalType": "uint256",
           "name": "_propertyID",
           "type": "uint256"
         },
         {
-          "internalType": "string",
           "name": "_owner",
           "type": "string"
         },
         {
-          "internalType": "address",
           "name": "_address",
           "type": "address"
         },
         {
-          "internalType": "string",
           "name": "_id",
           "type": "string"
         },
         {
-          "internalType": "string",
           "name": "_street_address",
           "type": "string"
         },
         {
-          "internalType": "string",
           "name": "_unit",
           "type": "string"
         },
         {
-          "internalType": "string",
           "name": "_completion_date",
           "type": "string"
         },
         {
-          "internalType": "string",
           "name": "_email",
           "type": "string"
         },
         {
-          "internalType": "bool",
           "name": "_sale",
           "type": "bool"
         },
         {
-          "internalType": "string",
           "name": "_sale_price",
           "type": "string"
         }
@@ -351,7 +162,6 @@ var Contracts = { OwnershipContract:  {
       "constant": true,
       "inputs": [
         {
-          "internalType": "address",
           "name": "",
           "type": "address"
         }
@@ -359,22 +169,18 @@ var Contracts = { OwnershipContract:  {
       "name": "userList",
       "outputs": [
         {
-          "internalType": "string",
           "name": "id",
           "type": "string"
         },
         {
-          "internalType": "string",
           "name": "name",
           "type": "string"
         },
         {
-          "internalType": "string",
           "name": "email",
           "type": "string"
         },
         {
-          "internalType": "address",
           "name": "wallet_address",
           "type": "address"
         }
@@ -382,9 +188,155 @@ var Contracts = { OwnershipContract:  {
       "payable": false,
       "stateMutability": "view",
       "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_owner",
+          "type": "string"
+        },
+        {
+          "name": "_address",
+          "type": "address"
+        },
+        {
+          "name": "_id",
+          "type": "string"
+        },
+        {
+          "name": "_street_address",
+          "type": "string"
+        },
+        {
+          "name": "_unit",
+          "type": "string"
+        },
+        {
+          "name": "_completion_date",
+          "type": "string"
+        },
+        {
+          "name": "_email",
+          "type": "string"
+        },
+        {
+          "name": "_sale",
+          "type": "bool"
+        },
+        {
+          "name": "_sale_price",
+          "type": "string"
+        }
+      ],
+      "name": "registerProperty",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_propertyID",
+          "type": "uint256"
+        }
+      ],
+      "name": "getProperty",
+      "outputs": [
+        {
+          "name": "_street_address",
+          "type": "string"
+        },
+        {
+          "name": "_unit",
+          "type": "string"
+        },
+        {
+          "name": "_completion_date",
+          "type": "string"
+        },
+        {
+          "name": "_owner_name",
+          "type": "string"
+        },
+        {
+          "name": "_wallet_address",
+          "type": "address"
+        },
+        {
+          "name": "_sale",
+          "type": "bool"
+        },
+        {
+          "name": "_sale_price",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_address",
+          "type": "address"
+        }
+      ],
+      "name": "getUser",
+      "outputs": [
+        {
+          "name": "_nric",
+          "type": "string"
+        },
+        {
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "name": "_email",
+          "type": "string"
+        },
+        {
+          "name": "_wallet_address",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_nric",
+          "type": "string"
+        },
+        {
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "name": "_email",
+          "type": "string"
+        },
+        {
+          "name": "_wallet_address",
+          "type": "address"
+        }
+      ],
+      "name": "registerUser",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     }
   ],
-  address: "0x4c932887e70cdd131ebfa4757bc4f895d49ab16d",
+  address: "0x91580d137c119e5676a154cff85a4ae285083f79",
   endpoint: "https://sepolia.infura.io/v3/"
  }}
 
@@ -554,6 +506,9 @@ OwnershipRegistrationApp.prototype.checkUserExist = function(hash, cb){
         localStorage.setItem("CurrEmail", email);
       }
       else{
+        $(document).on("click", "#catalog-tab", function() {
+          return false;
+        });
         $("#button-register-property-form").prop('disabled', true);
         $("#no-user-info-prompt").append("*Please register your information above before proceeding")
       }
@@ -654,12 +609,13 @@ OwnershipRegistrationApp.prototype.registerProperty = function(){
             fr.addEventListener('load', () => {
               const url = fr.result;
               
-              var i = 1;
+              var i = 0;
               do {
                 i += 1;
               }while(localStorage.getItem("PropertyImg"+i) != null);
 
               localStorage.setItem("PropertyImg"+i, url);
+              console.log(i);
             })
             this.instance.registerProperty(propertyOwner, address, propertyOwnerNRIC, propertyAddress, propertyUnit, propertyLife, propertyOwnerEmail, propertySaleStatus, propertySalePrice,
               //gas required to execute the transaction
@@ -903,7 +859,7 @@ OwnershipRegistrationApp.prototype.loadSales = function () {
           var propertyOwner = property[4];
           var currentUser = localStorage.getItem("CurrAddress");
           const url = localStorage.getItem("PropertyImg"+i);
-          if (propertyOwner = currentUser){
+          if (propertyOwner == currentUser){
             var salePropertyTemplate = '<div class="container d-flex justify-content-center align-items-center mt-5"><div class="container-flex col-xl-12 sale-property-list"><div class="pt-3 pb-5 px-5"><div class="row content d-flex justify-content-center align-items-center g-0"><div class=""><div class="sale-property-info d-flex justify-content-center align-items-center"><img src="'+url+'" alt="" style="max-width: 150px;"></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="col"><div class="sale-property-info"><div class="sale-streetaddress">' + propertyAddress + '</div></div></div><div class="col"><div class="sale-property-info d-flex justify-content-end"><div class="sale-propertyid">' + '# ' + i + '</div></div></div></div><hr><div class="row content d-flex justify-content-center align-items-center g-0"><div class="mb-1"><div class="sale-property-info"><div class="sale-propertyunit">' + '<b>Property Unit Number:</b> #' + propertyUnit + '</div></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="col"><div class="sale-property-info"><div class="sale-propertylife">' + '<b>Property Lifespan: </b>' + propertyLife + '</div></div></div><div class="col"><div class="sale-property-info"><div class="sale-propertysalestats">' + '<b>For Sale: </b>' + propertySaleStats + '</div></div></div><div class="col"><div class="sale-property-info"><div class="sale-propertysaleprice">' + '<b>Sales Price:</b> ' + propertySalePrice + ' ETH' + '</div></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="sale-property-info"><button class="btn btn-primary button-sale mt-4" id="button-sale-transfer" onclick="purchaseProperty(' + i + ')" disabled>' + 'Purchase' + '</button></div></div></div></div></div>';
             $("#cataloglist").append(salePropertyTemplate);
           }

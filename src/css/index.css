@@ -27,6 +27,10 @@ body{
     background: #222222;
 }
 
+body::-webkit-scrollbar{
+    display: none;
+}
+
 .navbar{
     background-color: transparent;
 }
