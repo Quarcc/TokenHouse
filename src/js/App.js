@@ -334,9 +334,15 @@ var Contracts = { OwnershipContract:  {
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
+    },
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
     }
   ],
-  address: "0x91580d137c119e5676a154cff85a4ae285083f79",
+  address: "0x69f89c64da970127b2946494edf20def4a6f8ee1",
   endpoint: "https://sepolia.infura.io/v3/"
  }}
 
@@ -859,7 +865,7 @@ OwnershipRegistrationApp.prototype.loadSales = function () {
           var propertyOwner = property[4];
           var currentUser = localStorage.getItem("CurrAddress");
           const url = localStorage.getItem("PropertyImg"+i);
-          if (propertyOwner == currentUser){
+          if (propertyOwner.toLowerCase() == currentUser.toLowerCase()){
             var salePropertyTemplate = '<div class="container d-flex justify-content-center align-items-center mt-5"><div class="container-flex col-xl-12 sale-property-list"><div class="pt-3 pb-5 px-5"><div class="row content d-flex justify-content-center align-items-center g-0"><div class=""><div class="sale-property-info d-flex justify-content-center align-items-center"><img src="'+url+'" alt="" style="max-width: 150px;"></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="col"><div class="sale-property-info"><div class="sale-streetaddress">' + propertyAddress + '</div></div></div><div class="col"><div class="sale-property-info d-flex justify-content-end"><div class="sale-propertyid">' + '# ' + i + '</div></div></div></div><hr><div class="row content d-flex justify-content-center align-items-center g-0"><div class="mb-1"><div class="sale-property-info"><div class="sale-propertyunit">' + '<b>Property Unit Number:</b> #' + propertyUnit + '</div></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="col"><div class="sale-property-info"><div class="sale-propertylife">' + '<b>Property Lifespan: </b>' + propertyLife + '</div></div></div><div class="col"><div class="sale-property-info"><div class="sale-propertysalestats">' + '<b>For Sale: </b>' + propertySaleStats + '</div></div></div><div class="col"><div class="sale-property-info"><div class="sale-propertysaleprice">' + '<b>Sales Price:</b> ' + propertySalePrice + ' ETH' + '</div></div></div></div><div class="row content d-flex justify-content-center align-items-center g-0"><div class="sale-property-info"><button class="btn btn-primary button-sale mt-4" id="button-sale-transfer" onclick="purchaseProperty(' + i + ')" disabled>' + 'Purchase' + '</button></div></div></div></div></div>';
             $("#cataloglist").append(salePropertyTemplate);
           }
