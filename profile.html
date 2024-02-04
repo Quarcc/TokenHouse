@@ -167,15 +167,16 @@
                                             <label class="form-check-label" for="forsale">
                                               For Sale
                                             </label>
-                                          </div>
-                                          <div class="form-check">
+                                        </div>
+                                        <div class="form-check">
                                             <input class="form-check-input" type="radio" name="salestatus" id="notforsale" value=false checked>
                                             <label class="form-check-label" for="notforsale">
                                               Not For Sale
                                             </label>
-                                          </div>
                                         </div>  
                                     </div>
+                                </div>
+                                <div class="row content d-flex justify-content-center align-items-center g-0">
                                     <div class="col mt-4">
                                         <div class="form-floating">
                                             <input type="text" class="form-control" id="saleprice-input" placeholder="Sale Price (in ETH), if not for sale, please input 0" value="0">
@@ -183,7 +184,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <p style="color: red; font-size: 14px; font-weight: 500;" class="d-flex justify-content-center">*Note information can only be uploaded once, please verify</p>
+                                <div class="row content d-flex justify-content-center align-items-center g-0">
+                                    <div class="col mt-4">
+                                        <div class="form-floating">
+                                            <input type="file" id="register-property-file" accept="image/*">
+                                        </div>
+                                    </div>
+                                </div>
+                                <p style="color: red; font-size: 14px; font-weight: 500;" class="d-flex justify-content-center mt-3">*Note information can only be uploaded once, please verify</p>
                                 <div class="d-flex justify-content-center mt-3">
                                     <div class="alert" id="error-message-banner-register-property">
                                         <span class="closebtn ps-2" onclick="this.parentElement.style.display='none';">&times;</span>
@@ -231,19 +239,27 @@
                                             <label class="form-check-label" for="updateforsale">
                                               For Sale
                                             </label>
-                                          </div>
-                                          <div class="form-check">
+                                        </div>
+                                        <div class="form-check">
                                             <input class="form-check-input" type="radio" name="updatesalestatus" id="updatenotforsale" value=false checked>
                                             <label class="form-check-label" for="updatenotforsale">
                                               Not For Sale
                                             </label>
-                                          </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row content d-flex justify-content-center align-items-center g-0">
                                     <div class="col mt-4">
                                         <div class="form-floating">
                                             <input type="text" class="form-control" id="update-saleprice-input" placeholder="Sale Price (in ETH), if not for sale, please input 0">
                                             <label for="update-saleprice-input">Sale Price (in ETH), 0 if not for sale</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row content d-flex justify-content-center align-items-center g-0">
+                                    <div class="col mt-4">
+                                        <div class="form-floating">
+                                            <input type="file" id="update-property-file" accept="image/*">
                                         </div>
                                     </div>
                                 </div>
